@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Scene from "@/components/3d/Scene";
+
 import { Navbar } from "@/components/layout/Navbar";
 import { cn } from "@/lib/utils";
 
@@ -32,7 +32,7 @@ export default function RootLayout({
         jetbrainsMono.variable,
         "antialiased bg-background text-foreground overflow-x-hidden selection:bg-primary selection:text-primary-foreground font-sans"
       )}>
-        <Scene />
+
         <Navbar />
         <main className="relative z-10 min-h-screen flex flex-col">
            {children}
