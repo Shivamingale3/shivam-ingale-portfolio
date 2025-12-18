@@ -20,10 +20,10 @@ export function Hero() {
         >
           {/* Glass Card for Intro */}
           <div className="glass rounded-3xl p-8 md:p-12 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-white/20 to-transparent" />
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/20 to-transparent" />
 
             <div className="flex items-center gap-4 mb-8">
-              <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-white/20">
+              <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-border">
                 <Image
                   src={RESUME_DATA.avatarUrl}
                   alt={RESUME_DATA.name}
@@ -32,20 +32,22 @@ export function Hero() {
                 />
               </div>
               <div className="flex flex-col">
-                <div className="flex items-center gap-2 text-white/60 font-mono text-xs tracking-widest uppercase">
+                <div className="flex items-center gap-2 text-muted-foreground font-mono text-xs tracking-widest uppercase">
                   <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_#10b981]" />
                   System Online
                 </div>
-                <h2 className="text-white text-lg font-bold">Shivam Ingale</h2>
+                <h2 className="text-foreground text-lg font-bold">
+                  Shivam Ingale
+                </h2>
               </div>
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-6 text-white leading-[0.9]">
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-6 text-foreground leading-[0.9]">
               FULL STACK <br />
-              <span className="text-white/40">ARCHITECT</span>
+              <span className="text-muted-foreground/50">ARCHITECT</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-white/60 max-w-lg leading-relaxed font-light">
+            <p className="text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed font-light">
               Building scalable digital infrastructure with precision and
               aesthetic excellence.
             </p>
@@ -54,7 +56,7 @@ export function Hero() {
           <div className="flex flex-wrap gap-4">
             <Button
               size="lg"
-              className="rounded-full bg-white text-black hover:bg-gray-200 font-bold h-14 px-10"
+              className="rounded-full bg-primary text-primary-foreground hover:opacity-90 font-bold h-14 px-10"
               asChild
             >
               <Link href="#projects">
@@ -65,7 +67,7 @@ export function Hero() {
             <Button
               size="lg"
               variant="outline"
-              className="rounded-full border-white/20 text-white hover:bg-white/10 h-14 px-10 backdrop-blur-sm"
+              className="rounded-full border-border text-foreground hover:bg-secondary/50 h-14 px-10 backdrop-blur-sm"
               asChild
             >
               <Link href="#contact">
@@ -82,29 +84,29 @@ export function Hero() {
           transition={{ delay: 0.3, duration: 0.5 }}
           className="md:col-span-4 hidden md:flex flex-col h-full"
         >
-          <div className="glass rounded-3xl p-8 font-mono text-sm text-gray-400 h-full flex flex-col justify-between">
+          <div className="glass rounded-3xl p-8 font-mono text-sm text-muted-foreground h-full flex flex-col justify-between">
             <div>
-              <div className="flex justify-between border-b border-white/10 pb-4 mb-6">
+              <div className="flex justify-between border-b border-border pb-4 mb-6">
                 <span>USER_DATA</span>
                 <span className="text-emerald-500">ACTIVE</span>
               </div>
               <div className="space-y-4">
                 <div className="flex justify-between">
                   <span>ROLE:</span>
-                  <span className="text-white">ENGINEER</span>
+                  <span className="text-foreground">ENGINEER</span>
                 </div>
                 <div className="flex justify-between">
                   <span>LOC:</span>
-                  <span className="text-white">INDIA</span>
+                  <span className="text-foreground">INDIA</span>
                 </div>
                 <div className="flex justify-between">
                   <span>STACK:</span>
-                  <span className="text-white">NEXT / JAVA</span>
+                  <span className="text-foreground">NEXT / JAVA</span>
                 </div>
               </div>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-white/10 text-xs text-white/30 truncate">
+            <div className="mt-8 pt-6 border-t border-border text-xs text-muted-foreground/50 truncate">
               ID: {RESUME_DATA.contact.email}
             </div>
           </div>

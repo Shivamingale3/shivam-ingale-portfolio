@@ -14,15 +14,15 @@ export function Contact() {
         whileInView={{ opacity: 1, scale: 1 }}
         className="glass rounded-[2rem] p-8 md:p-16 text-center"
       >
-        <div className="inline-flex items-center justify-center p-4 bg-white/5 rounded-full mb-8 border border-white/10">
-          <Mail className="w-8 h-8 text-white" />
+        <div className="inline-flex items-center justify-center p-4 bg-secondary/20 rounded-full mb-8 border border-border">
+          <Mail className="w-8 h-8 text-foreground" />
         </div>
 
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+        <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
           Let's work together.
         </h2>
 
-        <p className="text-lg text-gray-400 mb-10 max-w-md mx-auto leading-relaxed">
+        <p className="text-lg text-muted-foreground mb-10 max-w-md mx-auto leading-relaxed">
           Currently open for new opportunities. Whether you have a question or
           just want to say hi, my inbox is open.
         </p>
@@ -30,7 +30,7 @@ export function Contact() {
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Button
             size="lg"
-            className="rounded-full bg-white text-black hover:bg-gray-200 font-bold h-14 px-10 text-base"
+            className="rounded-full bg-primary text-primary-foreground hover:opacity-90 font-bold h-14 px-10 text-base"
             asChild
           >
             <a href={`mailto:${RESUME_DATA.contact.email}`}>Say Hello</a>
@@ -38,7 +38,7 @@ export function Contact() {
           <Button
             size="lg"
             variant="outline"
-            className="rounded-full border-white/10 bg-white/5 text-white hover:bg-white/10 h-14 px-10 backdrop-blur-md"
+            className="rounded-full border-border bg-secondary/10 text-foreground hover:bg-secondary/20 h-14 px-10 backdrop-blur-md"
             onClick={() => {
               navigator.clipboard.writeText(RESUME_DATA.contact.email);
               toast.success("Email copied to clipboard!");
@@ -49,7 +49,7 @@ export function Contact() {
         </div>
       </motion.div>
 
-      <footer className="mt-24 text-center text-xs text-gray-600 font-mono tracking-widest uppercase">
+      <footer className="mt-24 text-center text-xs text-muted-foreground font-mono tracking-widest uppercase">
         <p>© 2024 {RESUME_DATA.name} // ALL SYSTEMS OPERATIONAL</p>
       </footer>
     </section>

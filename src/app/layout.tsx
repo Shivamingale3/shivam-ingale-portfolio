@@ -5,6 +5,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Background3D } from "@/components/layout/Background3D";
 import { Toaster } from "sonner";
+import { Providers } from "@/components/providers/Providers";
 import { cn } from "@/lib/utils";
 
 const inter = Inter({
@@ -32,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           inter.variable,
@@ -40,12 +41,14 @@ export default function RootLayout({
           "antialiased bg-background text-foreground overflow-x-hidden selection:bg-primary selection:text-primary-foreground font-sans"
         )}
       >
-        <Background3D />
-        <Navbar />
-        <main className="relative z-10 min-h-screen flex flex-col">
-          {children}
-          <Toaster />
-        </main>
+        <Providers attribute="class" defaultTheme="dark" enableSystem>
+          <Background3D />
+          <Navbar />
+          <main className="relative z-10 min-h-screen flex flex-col">
+            {children}
+            <Toaster />
+          </main>
+        </Providers>
       </body>
     </html>
   );

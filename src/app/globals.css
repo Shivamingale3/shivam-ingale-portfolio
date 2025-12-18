@@ -1,67 +1,87 @@
 @import "tailwindcss";
 
-@theme {
-  /* Strict Monochrome Palette */
-  --color-background: hsl(0 0% 0%); /* Pure Black */
-  --color-foreground: hsl(0 0% 100%); /* Pure White */
+@layer base {
+  :root {
+    /* LIGHT MODE (Inverted from original dark) */
+    --background: 0 0% 100%; /* White */
+    --foreground: 0 0% 0%; /* Black */
 
-  --color-card: hsl(0 0% 5%);
-  --color-card-foreground: hsl(0 0% 100%);
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
 
-  --color-popover: hsl(0 0% 5%);
-  --color-popover-foreground: hsl(0 0% 100%);
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
 
-  /* Primary is now White */
-  --color-primary: hsl(0 0% 100%);
-  --color-primary-foreground: hsl(0 0% 0%);
+    --primary: 0 0% 0%; /* Black */
+    --primary-foreground: 0 0% 100%; /* White */
 
-  --color-secondary: hsl(0 0% 15%);
-  --color-secondary-foreground: hsl(0 0% 100%);
+    --secondary: 0 0% 96%; /* Light Gray */
+    --secondary-foreground: 0 0% 9%;
 
-  --color-muted: hsl(0 0% 15%);
-  --color-muted-foreground: hsl(0 0% 60%);
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-  --color-accent: hsl(0 0% 15%);
-  --color-accent-foreground: hsl(0 0% 100%);
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 9%;
 
-  --color-destructive: hsl(0 0% 30%);
-  --color-destructive-foreground: hsl(0 0% 100%);
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-  --color-border: hsl(0 0% 20%);
-  --color-input: hsl(0 0% 20%);
-  --color-ring: hsl(0 0% 100%);
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 0%; /* Black Ring */
 
-  --radius: 1.5rem; /* Rounded corners for premium feel */
+    --radius: 1.5rem;
+  }
 
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
+  .dark {
+    /* DARK MODE (Original) */
+    --background: 0 0% 0%; /* Pure Black */
+    --foreground: 0 0% 100%; /* Pure White */
 
-  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 5%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 0 0% 100%; /* White */
+    --primary-foreground: 0 0% 0%; /* Black */
+
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 0 0% 100%; /* White Ring */
+  }
 }
 
 @layer base {
   * {
-    border-color: var(--color-border);
+    border-color: hsl(var(--border));
+    border-style: solid;
   }
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-    /* Subtle grid pattern */
-    background-size: 50px 50px;
-    background-image: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0.03) 1px,
-        transparent 1px
-      ),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
   }
 }
 
 @layer utilities {
   .glass {
-    background: rgba(0, 0, 0, 0.4);
+    background: hsl(var(--secondary) / 0.3);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid hsl(var(--foreground) / 0.1);
   }
 
   .glass-hover {
@@ -69,11 +89,7 @@
   }
 
   .glass-hover:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.3);
+    background: hsl(var(--secondary) / 0.5);
+    border-color: hsl(var(--foreground) / 0.2);
   }
-}
-
-button {
-  @apply cursor-pointer;
 }
