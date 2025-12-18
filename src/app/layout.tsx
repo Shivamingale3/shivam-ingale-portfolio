@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 import { Navbar } from "@/components/layout/Navbar";
+import { Background3D } from "@/components/layout/Background3D";
 import { Toaster } from "sonner";
 import { cn } from "@/lib/utils";
 
@@ -39,6 +40,7 @@ export default function RootLayout({
           "antialiased bg-background text-foreground overflow-x-hidden selection:bg-primary selection:text-primary-foreground font-sans"
         )}
       >
+        <Background3D />
         <Navbar />
         <main className="relative z-10 min-h-screen flex flex-col">
           {children}
