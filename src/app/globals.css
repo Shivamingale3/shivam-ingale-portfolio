@@ -30,9 +30,9 @@
   --color-border: hsl(0 0% 20%);
   --color-input: hsl(0 0% 20%);
   --color-ring: hsl(0 0% 100%);
-  
+
   --radius: 1.5rem; /* Rounded corners for premium feel */
-  
+
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
 
@@ -48,8 +48,12 @@
     color: var(--color-foreground);
     /* Subtle grid pattern */
     background-size: 50px 50px;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-image: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0.03) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   }
 }
 
@@ -59,13 +63,17 @@
     backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
-  
+
   .glass-hover {
     transition: all 0.3s ease;
   }
-  
+
   .glass-hover:hover {
     background: rgba(255, 255, 255, 0.05);
     border-color: rgba(255, 255, 255, 0.3);
   }
+}
+
+button {
+  @apply cursor-pointer;
 }

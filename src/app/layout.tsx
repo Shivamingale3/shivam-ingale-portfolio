@@ -3,9 +3,10 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 import { Navbar } from "@/components/layout/Navbar";
+import { Toaster } from "sonner";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
 });
@@ -17,7 +18,11 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Shivam Ingale | Full Stack Engineer",
-  description: "Developer portfolio of Shivam Ingale, specializing in Next.js, React, and Java Spring Boot.",
+  description:
+    "Developer portfolio of Shivam Ingale, specializing in Next.js, React, and Java Spring Boot.",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
@@ -27,15 +32,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={cn(
-        inter.variable, 
-        jetbrainsMono.variable,
-        "antialiased bg-background text-foreground overflow-x-hidden selection:bg-primary selection:text-primary-foreground font-sans"
-      )}>
-
+      <body
+        className={cn(
+          inter.variable,
+          jetbrainsMono.variable,
+          "antialiased bg-background text-foreground overflow-x-hidden selection:bg-primary selection:text-primary-foreground font-sans"
+        )}
+      >
         <Navbar />
         <main className="relative z-10 min-h-screen flex flex-col">
-           {children}
+          {children}
+          <Toaster />
         </main>
       </body>
     </html>

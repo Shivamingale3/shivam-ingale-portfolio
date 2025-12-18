@@ -8,7 +8,8 @@ export const RESUME_DATA = {
   summary:
     "Full-stack Engineer experienced in building production-grade systems across React, Next.js, Node.js, and Spring Boot. Delivered cloud-ready solutions on AWS/GCP, optimized system performance, and shipped features used by real clients. Strong ownership mindset — handle architecture, implementation, and delivery end-to-end.",
   avatarUrl: "https://github.com/shivamingale.png",
-  personalWebsiteUrl: "https://shiv.dev", // Placeholder
+  personalWebsiteUrl: "https://shiv.dev",
+  resumeUrl: "#", // Placeholder
   contact: {
     email: "shivamingale3@gmail.com",
     tel: "+91-9325063591",

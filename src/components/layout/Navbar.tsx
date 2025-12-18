@@ -13,23 +13,45 @@ export function Navbar() {
           <span className="text-primary">.DEV</span>
         </Link>
       </div>
-      
+
       <div className="hidden md:flex items-center space-x-6">
-        <Link href="#projects" className="text-sm font-medium hover:text-primary transition-colors">
+        <Link
+          href="#projects"
+          className="text-sm font-medium hover:text-primary transition-colors"
+        >
           PROJECTS
         </Link>
-        <Link href="#experience" className="text-sm font-medium hover:text-primary transition-colors">
+        <Link
+          href="#experience"
+          className="text-sm font-medium hover:text-primary transition-colors"
+        >
           EXPERIENCE
         </Link>
-        <Link href="#skills" className="text-sm font-medium hover:text-primary transition-colors">
+        <Link
+          href="#skills"
+          className="text-sm font-medium hover:text-primary transition-colors"
+        >
           SKILLS
         </Link>
-        <Link href="#contact" className="text-sm font-medium hover:text-primary transition-colors">
+        <Link
+          href="#contact"
+          className="text-sm font-medium hover:text-primary transition-colors"
+        >
           CONTACT
         </Link>
-        
-        <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-black">
-          RESUME
+
+        <Button
+          variant="outline"
+          className="border-primary text-primary hover:bg-primary hover:text-black"
+          asChild
+        >
+          <a
+            href={RESUME_DATA.resumeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            RESUME
+          </a>
         </Button>
       </div>
     </nav>

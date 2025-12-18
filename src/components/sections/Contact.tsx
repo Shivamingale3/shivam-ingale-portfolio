@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { RESUME_DATA } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Mail, Copy } from "lucide-react";
+import { toast } from "sonner";
 
 export function Contact() {
   return (
@@ -14,26 +15,37 @@ export function Contact() {
         className="glass rounded-[2rem] p-8 md:p-16 text-center"
       >
         <div className="inline-flex items-center justify-center p-4 bg-white/5 rounded-full mb-8 border border-white/10">
-             <Mail className="w-8 h-8 text-white" />
+          <Mail className="w-8 h-8 text-white" />
         </div>
-        
+
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-             Let's work together.
+          Let's work together.
         </h2>
-        
+
         <p className="text-lg text-gray-400 mb-10 max-w-md mx-auto leading-relaxed">
-             Currently open for new opportunities. Whether you have a question or just want to say hi, my inbox is open.
+          Currently open for new opportunities. Whether you have a question or
+          just want to say hi, my inbox is open.
         </p>
 
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-           <Button size="lg" className="rounded-full bg-white text-black hover:bg-gray-200 font-bold h-14 px-10 text-base" asChild>
-             <a href={`mailto:${RESUME_DATA.contact.email}`}>
-                Say Hello
-             </a>
-           </Button>
-           <Button size="lg" variant="outline" className="rounded-full border-white/10 bg-white/5 text-white hover:bg-white/10 h-14 px-10 backdrop-blur-md">
-               <Copy className="mr-2 w-4 h-4" /> Copy Email
-           </Button>
+          <Button
+            size="lg"
+            className="rounded-full bg-white text-black hover:bg-gray-200 font-bold h-14 px-10 text-base"
+            asChild
+          >
+            <a href={`mailto:${RESUME_DATA.contact.email}`}>Say Hello</a>
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            className="rounded-full border-white/10 bg-white/5 text-white hover:bg-white/10 h-14 px-10 backdrop-blur-md"
+            onClick={() => {
+              navigator.clipboard.writeText(RESUME_DATA.contact.email);
+              toast.success("Email copied to clipboard!");
+            }}
+          >
+            <Copy className="mr-2 w-4 h-4" /> Copy Email
+          </Button>
         </div>
       </motion.div>
 
