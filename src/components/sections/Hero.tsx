@@ -56,7 +56,7 @@ export function Hero() {
           <div className="flex flex-wrap gap-4">
             <Button
               size="lg"
-              className="rounded-full bg-primary text-primary-foreground hover:opacity-90 font-bold h-14 px-10"
+              className="rounded-full bg-primary text-primary-foreground font-bold h-14 px-10 transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl hover:opacity-90"
               asChild
             >
               <Link href="#projects">
@@ -67,7 +67,7 @@ export function Hero() {
             <Button
               size="lg"
               variant="outline"
-              className="rounded-full border-border text-foreground hover:bg-secondary/50 h-14 px-10 backdrop-blur-sm"
+              className="rounded-full border-2 border-foreground/10 bg-background/50 text-foreground h-14 px-10 backdrop-blur-sm transition-all duration-300 hover:bg-foreground hover:text-background hover:scale-105 active:scale-95 hover:border-foreground"
               asChild
             >
               <Link href="#contact">
