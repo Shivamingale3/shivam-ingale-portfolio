@@ -8,6 +8,29 @@ export function LimboBackground() {
   const charRef = useRef<HTMLCanvasElement>(null);
   const { theme } = useTheme();
 
+  // Use Refs for game state to avoid resets on re-renders (theme changes)
+  const themeRef = useRef(theme);
+  const playerRef = useRef({
+    x: typeof window !== "undefined" ? window.innerWidth / 2 : 500,
+    y: -50, // Initial Spawn
+    dy: 0,
+    dx: 0,
+    onGround: false,
+    state: "FALLING" as "IDLE" | "MOVING" | "PANIC" | "CLIMBING" | "FALLING",
+    target: null as DOMRect | null,
+    facing: 1,
+    decisionTimer: 0,
+    walkCycle: 0,
+  });
+  const platformsRef = useRef<DOMRect[]>([]);
+  const mouseRef = useRef({ x: -1000, y: -1000 });
+  const scrollRef = useRef(0);
+
+  // Sync theme to ref
+  useEffect(() => {
+    themeRef.current = theme;
+  }, [theme]);
+
   useEffect(() => {
     const bgCanvas = bgRef.current;
     const charCanvas = charRef.current;
@@ -21,40 +44,18 @@ export function LimboBackground() {
     let width = window.innerWidth;
     let height = window.innerHeight;
 
-    // Physics Constants
+    // Game Constants
     const GRAVITY = 0.6;
-    const JUMP_FORCE = -14;
+    const JUMP_FORCE = -15;
     const MOVE_SPEED = 3;
+    const LEG_LENGTH = 24; // Height from ground to hips
 
-    // AI & Character State
-    type AIState = "IDLE" | "MOVING" | "PANIC" | "CLIMBING" | "FALLING";
-
-    // Initial Spawn: Drop from top center
-    const player = {
-      x: width / 2,
-      y: -50,
-      dy: 0,
-      dx: 0,
-      onGround: false,
-      state: "FALLING" as AIState,
-      target: null as DOMRect | null,
-      facing: 1,
-      decisionTimer: 0,
-      walkCycle: 0,
-    };
-
-    let platforms: DOMRect[] = [];
-    let scrollX = 0;
-
-    // Mouse Interaction
-    const mouse = { x: -1000, y: -1000 };
     const handleMouseMove = (e: MouseEvent) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+      mouseRef.current.x = e.clientX;
+      mouseRef.current.y = e.clientY;
     };
 
     const updatePlatforms = () => {
-      // Include Navbar specifically to jump on it
       const elements = document.querySelectorAll(
         ".glass, button, .interacting-element, nav, header, h1, h2, p, span, a"
       );
@@ -70,7 +71,7 @@ export function LimboBackground() {
           newPlatforms.push(rect);
         }
       });
-      platforms = newPlatforms;
+      platformsRef.current = newPlatforms;
     };
 
     const handleResize = () => {
@@ -142,33 +143,35 @@ export function LimboBackground() {
     // --- Physics & AI ---
 
     const checkCollision = (newX: number, newY: number) => {
-      const feetY = newY;
-
-      // DOM Platforms
-      for (const plat of platforms) {
-        // Horizontal overlap
+      // newY is "Feet" position request
+      // Check DOM Platforms
+      for (const plat of platformsRef.current) {
         if (newX >= plat.left && newX <= plat.right) {
-          // Landing check: Approaching from top
-          // If feet are within a small range of the top
-          // AND we are falling (dy >= 0)
-          if (feetY >= plat.top && feetY <= plat.top + 25 && player.dy >= 0) {
+          // Check if sticking landing (Feet roughly at plat top)
+          // Allow slight snap distance (25px)
+          if (Math.abs(newY - plat.top) < 25 && playerRef.current.dy >= 0) {
             return { type: "ground", y: plat.top };
           }
         }
       }
 
-      // Terrain Collision (Always the floor backup)
-      const terrainY = getTerrainHeight(newX + scrollX, 0);
-      if (feetY >= terrainY) return { type: "ground", y: terrainY };
+      // Terrain Collision (Floor)
+      const terrainY = getTerrainHeight(newX + scrollRef.current, 0);
+      if (newY >= terrainY) return { type: "ground", y: terrainY };
 
       return null;
     };
 
     const AI_Think = () => {
+      const player = playerRef.current;
+      const mouse = mouseRef.current;
+
       // 1. Panic
       const dx = player.x - mouse.x;
-      const dy = player.y - 40 - mouse.y;
+      // Check distance to "Center of body" (approx y - 25)
+      const dy = player.y - 25 - mouse.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
+
       if (dist < 150) {
         player.state = "PANIC";
         player.target = null;
@@ -181,11 +184,9 @@ export function LimboBackground() {
 
       player.decisionTimer--;
 
-      // If falling, can't think
-      if (!player.onGround) return;
+      if (!player.onGround) return; // Wait til landed to think
 
       if (player.decisionTimer > 0) {
-        // Check Target Arrival
         if (
           player.target &&
           Math.abs(player.x - (player.target.left + player.target.width / 2)) <
@@ -202,16 +203,13 @@ export function LimboBackground() {
       // Make Decision
       player.decisionTimer = 120 + Math.floor(Math.random() * 100);
 
-      // 40% chance to Idle
       if (Math.random() < 0.4) {
         player.state = "IDLE";
         player.dx = 0;
         player.target = null;
       } else {
-        // Pick a target
         player.state = "MOVING";
-        // Filter visible targets
-        const visible = platforms.filter(
+        const visible = platformsRef.current.filter(
           (p) => p.left > 0 && p.right < width && p.top > 0 && p.top < height
         );
 
@@ -222,7 +220,6 @@ export function LimboBackground() {
           player.dx = dir * MOVE_SPEED;
           player.facing = dir || 1;
         } else {
-          // Wander if no targets
           player.dx = (Math.random() - 0.5) * MOVE_SPEED * 2;
           player.facing = Math.sign(player.dx) || 1;
         }
@@ -230,24 +227,20 @@ export function LimboBackground() {
     };
 
     const updatePhysics = () => {
+      const player = playerRef.current;
       AI_Think();
 
-      // Gravity always applies
       player.dy += GRAVITY;
-
-      // Limit falling speed
       player.dy = Math.min(player.dy, 15);
 
       let nextX = player.x + player.dx;
       let nextY = player.y + player.dy;
 
-      // Platform Jumping Logic
+      // Jump Logic
       if (player.state === "MOVING" && player.target && player.onGround) {
         const tCenter = player.target.left + player.target.width / 2;
         const distH = Math.abs(player.x - tCenter);
-        const distV = player.target.top - player.y; // Positive if target is below, negative if above
-
-        // Jump if target is above and we are close horizontally
+        const distV = player.target.top - player.y; // < 0 if target is above
         if (distV < -50 && distH < 150) {
           if (Math.random() < 0.2) {
             player.dy = JUMP_FORCE;
@@ -256,37 +249,33 @@ export function LimboBackground() {
         }
       }
 
-      // Screen Bounds
+      // Screen Bounce
       if (nextX < 0 || nextX > width) {
         player.dx *= -1;
         player.facing *= -1;
         nextX = player.x + player.dx;
       }
 
-      // Check Collision
+      // Collision
       const col = checkCollision(nextX, nextY);
 
       if (col) {
-        // Hit ground/platform
-        // Only stop if we were falling onto it
         if (player.dy > 0) {
           player.dy = 0;
-          player.y = col.y;
+          player.y = col.y; // Snap feet to ground
           player.onGround = true;
           nextY = col.y;
         } else {
-          // Moving up through platform (permeable) or hitting head
           player.onGround = false;
         }
       } else {
-        // No collision = falling
         player.onGround = false;
       }
 
       player.x = nextX;
       player.y = nextY;
 
-      // Reset if fell too far
+      // Respawn Safety
       if (player.y > height + 200) {
         player.y = -50;
         player.dy = 0;
@@ -296,20 +285,27 @@ export function LimboBackground() {
       if (Math.abs(player.dx) > 0.1 && player.onGround) player.walkCycle += 0.2;
     };
 
-    // Drawing Helpers
+    // Drawing
+    // NOTE: 'y' passed here is FEET position. We must draw body UP from y.
     const drawHeadLamp = (
       ctx: CanvasRenderingContext2D,
       x: number,
-      y: number
+      footerY: number
     ) => {
-      if (theme !== "dark") return;
-      const facing = player.facing;
+      if (themeRef.current !== "dark") return;
+      const facing = playerRef.current.facing;
+
+      // Hips at Y-24, Body 15, Head 6 -> Head center roughly Y-24-15-6 = Y-45
       const headX = x;
-      const headY = y - 15 - 6;
+      const headY = footerY - LEG_LENGTH - 15 - 6;
+
       ctx.fillStyle = "#444";
       ctx.fillRect(headX - 3, headY - 4, 6, 6);
 
       let angle: number;
+      const player = playerRef.current;
+      const mouse = mouseRef.current;
+
       if (player.state === "IDLE" || player.state === "PANIC") {
         const dx = mouse.x - headX;
         const dy = mouse.y - headY;
@@ -343,41 +339,53 @@ export function LimboBackground() {
     };
 
     const drawStickman = (ctx: CanvasRenderingContext2D) => {
-      const { x, y, walkCycle, facing } = player;
+      const { x, y, walkCycle, facing } = playerRef.current;
+      // y is FEET position
       const headRadius = 6;
       const bodyLen = 15;
       const limbLen = 12;
-      const color = theme === "dark" ? "#000000" : "#333333";
+
+      // Calculate joints base on Ground Y
+      const hipsY = y - LEG_LENGTH;
+      const shoulderY = hipsY - bodyLen;
+      const headCenterY = shoulderY - headRadius;
+
+      const color = themeRef.current === "dark" ? "#000000" : "#333333";
       ctx.strokeStyle = color;
       ctx.fillStyle = color;
       ctx.lineWidth = 2.5;
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
 
+      // Head
       ctx.beginPath();
-      ctx.arc(x, y - bodyLen - headRadius, headRadius, 0, Math.PI * 2);
+      ctx.arc(x, headCenterY, headRadius, 0, Math.PI * 2);
       ctx.fill();
+      // Body
       ctx.beginPath();
-      ctx.moveTo(x, y - bodyLen);
-      ctx.lineTo(x, y);
+      ctx.moveTo(x, shoulderY);
+      ctx.lineTo(x, hipsY);
       ctx.stroke();
 
-      const swingRange = player.onGround ? 0.6 : 0.2;
-      const legAngleL = player.onGround
+      const swingRange = playerRef.current.onGround ? 0.6 : 0.2;
+      const legAngleL = playerRef.current.onGround
         ? Math.sin(walkCycle) * swingRange
         : 0.4;
-      const legAngleR = player.onGround
+      const legAngleR = playerRef.current.onGround
         ? Math.sin(walkCycle + Math.PI) * swingRange
         : -0.2;
       const armAngleL = Math.sin(walkCycle + Math.PI) * swingRange * 0.8;
       const armAngleR = Math.sin(walkCycle) * swingRange * 0.8;
 
+      // Draw Leg from Hips (hipsY) down to roughly Y
       const drawLimb = (baseX: number, baseY: number, angle: number) => {
         ctx.beginPath();
         ctx.moveTo(baseX, baseY);
+        // Thigh
         const kX = baseX + Math.sin(angle) * limbLen * facing;
         const kY = baseY + Math.cos(angle) * limbLen;
         ctx.lineTo(kX, kY);
+        // Calf
         const bend = Math.max(0, -Math.sin(angle + Math.PI / 2) * 1.5);
         const cAng = angle - bend * 0.5;
         ctx.lineTo(
@@ -387,32 +395,29 @@ export function LimboBackground() {
         ctx.stroke();
       };
 
-      drawLimb(x, y, legAngleL);
-      drawLimb(x, y, legAngleR);
+      drawLimb(x, hipsY, legAngleL);
+      drawLimb(x, hipsY, legAngleR);
+
+      // Arms from Shoulder
       ctx.beginPath();
-      ctx.moveTo(x, y - bodyLen + 2);
+      ctx.moveTo(x, shoulderY + 2);
       ctx.lineTo(
         x + Math.sin(armAngleL) * limbLen,
-        y - bodyLen + 2 + Math.cos(armAngleL) * limbLen
+        shoulderY + 2 + Math.cos(armAngleL) * limbLen
       );
       ctx.stroke();
       ctx.beginPath();
-      ctx.moveTo(x, y - bodyLen + 2);
+      ctx.moveTo(x, shoulderY + 2);
       ctx.lineTo(
         x + Math.sin(armAngleR) * limbLen,
-        y - bodyLen + 2 + Math.cos(armAngleR) * limbLen
+        shoulderY + 2 + Math.cos(armAngleR) * limbLen
       );
       ctx.stroke();
 
+      // Eye
       ctx.fillStyle = "#FFF";
       ctx.beginPath();
-      ctx.arc(
-        x + facing * 2,
-        y - bodyLen - headRadius - 1,
-        1.5,
-        0,
-        Math.PI * 2
-      );
+      ctx.arc(x + facing * 2, headCenterY - 1, 1.5, 0, Math.PI * 2);
       ctx.fill();
       drawHeadLamp(ctx, x, y);
     };
@@ -422,11 +427,15 @@ export function LimboBackground() {
         updatePlatforms();
       }
 
+      const currentTheme = themeRef.current;
+      const width = bgCanvas.width;
+      const height = bgCanvas.height;
+
       // --- Bg ---
-      const bgColor = theme === "dark" ? "#2a2a2a" : "#f0f0f0";
+      const bgColor = currentTheme === "dark" ? "#2a2a2a" : "#f0f0f0";
       bgCtx.fillStyle = bgColor;
       const grad = bgCtx.createLinearGradient(0, 0, 0, height);
-      if (theme === "dark") {
+      if (currentTheme === "dark") {
         grad.addColorStop(0, "#4a4a4a");
         grad.addColorStop(1, "#1a1a1a");
       } else {
@@ -435,55 +444,57 @@ export function LimboBackground() {
       }
       bgCtx.fillStyle = grad;
       bgCtx.fillRect(0, 0, width, height);
-      scrollX += 0.2;
 
-      // Terrain Layers
-      bgCtx.fillStyle = theme === "dark" ? "#222222" : "#d4d4d4";
+      scrollRef.current += 0.2;
+      const sx = scrollRef.current;
+
+      // Layers
+      bgCtx.fillStyle = currentTheme === "dark" ? "#222222" : "#d4d4d4";
       bgCtx.beginPath();
       bgCtx.moveTo(0, height);
       for (let x = 0; x <= width; x += 10)
-        bgCtx.lineTo(x, getTerrainHeight(x + scrollX * 0.2, 2));
+        bgCtx.lineTo(x, getTerrainHeight(x + sx * 0.2, 2));
       bgCtx.lineTo(width, height);
       bgCtx.fill();
 
-      bgCtx.fillStyle = theme === "dark" ? "#111111" : "#888888";
+      bgCtx.fillStyle = currentTheme === "dark" ? "#111111" : "#888888";
       bgCtx.beginPath();
       bgCtx.moveTo(0, height);
       for (let x = 0; x <= width; x += 5)
-        bgCtx.lineTo(x, getTerrainHeight(x + scrollX * 0.5, 1));
+        bgCtx.lineTo(x, getTerrainHeight(x + sx * 0.5, 1));
       bgCtx.lineTo(width, height);
       bgCtx.fill();
 
-      bgCtx.strokeStyle = theme === "dark" ? "#080808" : "#606060";
+      bgCtx.strokeStyle = currentTheme === "dark" ? "#080808" : "#606060";
       bgCtx.lineWidth = 2;
       trees.forEach((tree) => {
         if (tree.layer === 1) {
-          let rx = tree.x - scrollX * 0.5;
+          let rx = tree.x - sx * 0.5;
           if (rx < -100) {
             tree.x += 5000 + width;
-            rx = tree.x - scrollX * 0.5;
+            rx = tree.x - sx * 0.5;
           }
           if (rx > -100 && rx < width + 100)
             drawTree(bgCtx, rx, getTerrainHeight(tree.x, 1), tree.height * 0.8);
         }
       });
 
-      bgCtx.fillStyle = theme === "dark" ? "#000000" : "#333333";
+      bgCtx.fillStyle = currentTheme === "dark" ? "#000000" : "#333333";
       bgCtx.beginPath();
       bgCtx.moveTo(0, height);
       for (let x = 0; x <= width; x += 5)
-        bgCtx.lineTo(x, getTerrainHeight(x + scrollX, 0));
+        bgCtx.lineTo(x, getTerrainHeight(x + sx, 0));
       bgCtx.lineTo(width, height);
       bgCtx.fill();
 
-      bgCtx.strokeStyle = theme === "dark" ? "#111111" : "#333333";
+      bgCtx.strokeStyle = currentTheme === "dark" ? "#111111" : "#333333";
       bgCtx.lineWidth = 3;
       trees.forEach((tree) => {
         if (tree.layer === 0) {
-          let rx = tree.x - scrollX;
+          let rx = tree.x - sx;
           if (rx < -100) {
             tree.x += 5000 + width;
-            rx = tree.x - scrollX;
+            rx = tree.x - sx;
           }
           if (rx > -100 && rx < width + 100)
             drawTree(bgCtx, rx, getTerrainHeight(tree.x, 0), tree.height);
@@ -519,9 +530,8 @@ export function LimboBackground() {
       window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [theme]);
+  }, []); // Run ONCE. Depend on Refs for updates.
 
-  // Dual Canvas Structure
   return (
     <>
       <canvas ref={bgRef} className="fixed inset-0 z-0 pointer-events-none" />
