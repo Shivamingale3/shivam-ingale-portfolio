@@ -56,11 +56,16 @@ export function LimboBackground() {
     };
 
     const updatePlatforms = () => {
+      // Exclude Navbar from interaction to prevent "wandering in navbar"
+      // We explicitly select elements but filter out those inside 'nav'
       const elements = document.querySelectorAll(
-        ".glass, button, .interacting-element, nav, header, h1, h2, p, span, a"
+        ".glass, button, .interacting-element, header, h1, h2, p, span, a"
       );
       const newPlatforms: DOMRect[] = [];
       elements.forEach((el) => {
+        // Skip if element is inside a navbar or IS the navbar (though we removed 'nav' from selector)
+        if (el.closest("nav")) return;
+
         const rect = el.getBoundingClientRect();
         if (
           rect.width > 20 &&
