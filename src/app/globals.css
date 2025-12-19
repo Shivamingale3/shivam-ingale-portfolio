@@ -74,6 +74,7 @@
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Enhance legibility against variable background */
   }
 }
 
