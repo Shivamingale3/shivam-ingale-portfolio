@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { RESUME_DATA } from "@/lib/data";
+import { motion } from "framer-motion";
 
 export function Experience() {
   return (
@@ -23,7 +23,7 @@ export function Experience() {
 
       <div className="space-y-8 relative">
         {/* Continuous Line */}
-        <div className="absolute left-4 top-4 bottom-4 w-px bg-gradient-to-b from-transparent via-border to-transparent hidden md:block" />
+        <div className="absolute left-4 top-4 bottom-4 w-px bg-linear-to-b from-transparent via-border to-transparent hidden md:block" />
 
         {RESUME_DATA.work.map((role, index) => (
           <motion.div

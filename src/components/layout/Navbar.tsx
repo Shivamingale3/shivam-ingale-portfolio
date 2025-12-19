@@ -70,11 +70,7 @@ export function Navbar() {
           className="border-primary text-primary hover:bg-primary hover:text-black"
           asChild
         >
-          <a
-            href={RESUME_DATA.resumeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="/Shivam_Resume.docx.pdf" download>
             RESUME
           </a>
         </Button>

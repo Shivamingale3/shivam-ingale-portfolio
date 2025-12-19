@@ -39,7 +39,7 @@ export const RESUME_DATA = {
     {
       company: "Leadows Technologies Pvt. Ltd",
       link: "https://leadows.com",
-      badges: ["Remote", "Full-Time"],
+      badges: ["Full-Time"],
       title: "Software Engineer",
       logo: "/leadows-logo.png",
       start: "Sept 2024",
