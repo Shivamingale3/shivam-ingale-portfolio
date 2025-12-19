@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
+import { useEffect, useRef } from "react";
 
 export function LimboBackground() {
   const bgRef = useRef<HTMLCanvasElement>(null);
@@ -537,7 +537,7 @@ export function LimboBackground() {
       <canvas ref={bgRef} className="fixed inset-0 z-0 pointer-events-none" />
       <canvas
         ref={charRef}
-        className="fixed inset-0 z-[9999] pointer-events-none"
+        className="fixed inset-0 z-9999 pointer-events-none"
       />
     </>
   );
