@@ -2,6 +2,8 @@
 
 import { RESUME_DATA } from "@/lib/data";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import { useState } from "react";
 
 const SLUGS: Record<string, string> = {
   JavaScript: "javascript",
@@ -57,25 +59,11 @@ export function Skills() {
             {loopingSkills.map((skill, index) => {
               const slug = SLUGS[skill] || "github";
               return (
-                <div
+                <SkillItem
                   key={`${skill}-${index}`}
-                  className="flex items-center gap-3 px-6 py-4 rounded-full bg-secondary/30 border border-border shrink-0 backdrop-blur-sm grayscale hover:grayscale-0 transition-all duration-300"
-                >
-                  <div className="w-6 h-6 relative">
-                    <img
-                      src={`https://cdn.simpleicons.org/${slug}`}
-                      alt={skill}
-                      className="w-full h-full object-contain dark:invert"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src =
-                          "https://cdn.simpleicons.org/github";
-                      }}
-                    />
-                  </div>
-                  <span className="text-sm font-mono text-muted-foreground font-bold whitespace-nowrap">
-                    {skill}
-                  </span>
-                </div>
+                  skill={skill}
+                  slug={slug}
+                />
               );
             })}
           </motion.div>
@@ -97,26 +85,39 @@ export function Skills() {
             {loopingSkills.map((skill, index) => {
               const slug = SLUGS[skill] || "github";
               return (
-                <div
+                <SkillItem
                   key={`rev-${skill}-${index}`}
-                  className="flex items-center gap-3 px-6 py-4 rounded-full bg-secondary/30 border border-border shrink-0 backdrop-blur-sm grayscale hover:grayscale-0 transition-all duration-300"
-                >
-                  <div className="w-6 h-6 relative">
-                    <img
-                      src={`https://cdn.simpleicons.org/${slug}`}
-                      alt={skill}
-                      className="w-full h-full object-contain dark:invert"
-                    />
-                  </div>
-                  <span className="text-sm font-mono text-muted-foreground font-bold whitespace-nowrap">
-                    {skill}
-                  </span>
-                </div>
+                  skill={skill}
+                  slug={slug}
+                />
               );
             })}
           </motion.div>
         </div>
       </div>
     </section>
+  );
+}
+
+function SkillItem({ skill, slug }: { skill: string; slug: string }) {
+  const [src, setSrc] = useState(`https://cdn.simpleicons.org/${slug}`);
+
+  return (
+    <div className="flex items-center gap-3 px-6 py-4 rounded-full bg-secondary/30 border border-border shrink-0 backdrop-blur-sm grayscale hover:grayscale-0 transition-all duration-300">
+      <div className="w-6 h-6 relative">
+        <Image
+          src={src}
+          alt={skill}
+          fill
+          className="object-contain dark:invert"
+          onError={() => {
+            setSrc("https://cdn.simpleicons.org/github");
+          }}
+        />
+      </div>
+      <span className="text-sm font-mono text-muted-foreground font-bold whitespace-nowrap">
+        {skill}
+      </span>
+    </div>
   );
 }

@@ -19,7 +19,7 @@ export function Contact() {
         </div>
 
         <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-          Let's work together.
+          Let&apos;s work together.
         </h2>
 
         <p className="text-lg text-muted-foreground mb-10 max-w-md mx-auto leading-relaxed">
@@ -50,7 +50,9 @@ export function Contact() {
       </motion.div>
 
       <footer className="mt-24 text-center text-xs text-muted-foreground font-mono tracking-widest uppercase">
-        <p>© 2024 {RESUME_DATA.name} // ALL SYSTEMS OPERATIONAL</p>
+        <p>
+          © 2024 {RESUME_DATA.name} {"//"} ALL SYSTEMS OPERATIONAL
+        </p>
       </footer>
     </section>
   );
