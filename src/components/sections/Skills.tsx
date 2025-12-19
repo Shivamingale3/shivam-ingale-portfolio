@@ -2,30 +2,50 @@
 
 import { RESUME_DATA } from "@/lib/data";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import {
+  SiAmazonwebservices,
+  SiDocker,
+  SiExpress,
+  SiGooglecloud,
+  SiJavascript,
+  SiLinux,
+  SiMongodb,
+  SiMysql,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiOpenjdk,
+  SiPostgresql,
+  SiReact,
+  SiSpringboot,
+  SiTypescript,
+} from "react-icons/si";
+import { IconType } from "react-icons";
 import { useState } from "react";
 
-const SLUGS: Record<string, string> = {
-  JavaScript: "javascript",
-  TypeScript: "typescript",
-  Java: "openjdk",
-  "React.js": "react",
-  "Next.js": "nextdotjs",
-  "Node.js": "nodedotjs",
-  "Express.js": "express",
-  "Spring Boot": "springboot",
-  PostgreSQL: "postgresql",
-  MongoDB: "mongodb",
-  MySQL: "mysql",
-  "AWS (S3, EC2, Amplify, Cognito)": "amazonaws",
-  GCP: "googlecloud",
-  Docker: "docker",
-  Linux: "linux",
+// Mapping of skill names to Icons and Brand Colors
+const SKILL_ICONS: Record<string, { icon: IconType; color: string }> = {
+  JavaScript: { icon: SiJavascript, color: "#F7DF1E" },
+  TypeScript: { icon: SiTypescript, color: "#3178C6" },
+  Java: { icon: SiOpenjdk, color: "#FFFFFF" },
+  "React.js": { icon: SiReact, color: "#61DAFB" },
+  "Next.js": { icon: SiNextdotjs, color: "#AAA" }, // Neutral
+  "Node.js": { icon: SiNodedotjs, color: "#339933" },
+  "Express.js": { icon: SiExpress, color: "#AAAAAA" },
+  "Spring Boot": { icon: SiSpringboot, color: "#6DB33F" },
+  PostgreSQL: { icon: SiPostgresql, color: "#4169E1" },
+  MongoDB: { icon: SiMongodb, color: "#47A248" },
+  MySQL: { icon: SiMysql, color: "#4479A1" },
+  "AWS (S3, EC2, Amplify, Cognito)": {
+    icon: SiAmazonwebservices,
+    color: "#FF9900",
+  },
+  GCP: { icon: SiGooglecloud, color: "#4285F4" },
+  Docker: { icon: SiDocker, color: "#2496ED" },
+  Linux: { icon: SiLinux, color: "#FCC624" },
 };
 
 export function Skills() {
   const skills = RESUME_DATA.skills;
-  // Double the list for seamless loop
   const loopingSkills = [...skills, ...skills];
 
   return (
@@ -40,58 +60,44 @@ export function Skills() {
       </div>
 
       <div className="relative w-full">
-        {/* Gradients for fade effect - Use from-background to match theme */}
+        {/* Gradients */}
         <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
-        {/* Row 1: Scrolling Left */}
+        {/* Row 1 */}
         <div className="flex mb-8 overflow-hidden">
           <motion.div
             className="flex gap-4"
             animate={{ x: "-50%" }}
             transition={{
-              duration: 30,
+              duration: 40,
               repeat: Infinity,
               ease: "linear",
             }}
             style={{ width: "200%" }}
           >
-            {loopingSkills.map((skill, index) => {
-              const slug = SLUGS[skill] || "github";
-              return (
-                <SkillItem
-                  key={`${skill}-${index}`}
-                  skill={skill}
-                  slug={slug}
-                />
-              );
-            })}
+            {loopingSkills.map((skill, index) => (
+              <SkillItem key={`${skill}-${index}`} skill={skill} />
+            ))}
           </motion.div>
         </div>
 
-        {/* Row 2: Scrolling Right */}
+        {/* Row 2 */}
         <div className="flex overflow-hidden">
           <motion.div
             className="flex gap-4"
             animate={{ x: "0%" }}
             initial={{ x: "-50%" }}
             transition={{
-              duration: 35,
+              duration: 45,
               repeat: Infinity,
               ease: "linear",
             }}
             style={{ width: "200%" }}
           >
-            {loopingSkills.map((skill, index) => {
-              const slug = SLUGS[skill] || "github";
-              return (
-                <SkillItem
-                  key={`rev-${skill}-${index}`}
-                  skill={skill}
-                  slug={slug}
-                />
-              );
-            })}
+            {loopingSkills.map((skill, index) => (
+              <SkillItem key={`rev-${skill}-${index}`} skill={skill} />
+            ))}
           </motion.div>
         </div>
       </div>
@@ -99,24 +105,39 @@ export function Skills() {
   );
 }
 
-function SkillItem({ skill, slug }: { skill: string; slug: string }) {
-  const [src, setSrc] = useState(`https://cdn.simpleicons.org/${slug}`);
+function SkillItem({ skill }: { skill: string }) {
+  const data = SKILL_ICONS[skill] || { icon: SiJavascript, color: "#888" };
+  const Icon = data.icon;
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div className="flex items-center gap-3 px-6 py-4 rounded-full bg-secondary/30 border border-border shrink-0 backdrop-blur-sm grayscale hover:grayscale-0 transition-all duration-300">
-      <div className="w-6 h-6 relative">
-        <Image
-          src={src}
-          alt={skill}
-          fill
-          className="object-contain dark:invert"
-          onError={() => {
-            setSrc("https://cdn.simpleicons.org/github");
-          }}
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group relative flex items-center gap-3 px-6 py-4 rounded-full border transition-all duration-300 backdrop-blur-md cursor-default"
+      style={{
+        borderColor: isHovered ? data.color : "rgba(255,255,255,0.1)",
+        backgroundColor: isHovered
+          ? `${data.color}20` // 20 hex opacity (~12%)
+          : "rgba(120, 120, 120, 0.1)",
+        boxShadow: isHovered ? `0 0 20px -5px ${data.color}` : "none",
+      }}
+    >
+      <div className="relative w-6 h-6 flex items-center justify-center">
+        <Icon
+          className="w-full h-full transition-transform duration-300 group-hover:scale-110"
+          style={{ color: data.color }}
         />
       </div>
-      <span className="text-sm font-mono text-muted-foreground font-bold whitespace-nowrap">
-        {skill}
+      <span
+        className="text-sm font-mono font-bold whitespace-nowrap transition-colors duration-300"
+        style={{
+          color: isHovered ? data.color : "", // Inherit standard text color usually, or force white/foreground
+        }}
+      >
+        <span className={isHovered ? "" : "text-muted-foreground"}>
+          {skill}
+        </span>
       </span>
     </div>
   );
