@@ -35,9 +35,19 @@ export function Projects() {
               <div className="absolute -right-20 -top-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors duration-500" />
 
               <div className="flex justify-between items-start mb-8 relative z-10">
-                <div className="p-3 bg-secondary/30 rounded-2xl border border-border">
-                  <Folder className="w-6 h-6 text-foreground" />
-                </div>
+                {project.logo ? (
+                  <div className="w-12 h-12 bg-secondary/30 rounded-2xl border border-border p-2 flex items-center justify-center">
+                    <img
+                      src={project.logo}
+                      className="w-full h-full object-contain"
+                      alt={project.title}
+                    />
+                  </div>
+                ) : (
+                  <div className="p-3 bg-secondary/30 rounded-2xl border border-border">
+                    <Folder className="w-6 h-6 text-foreground" />
+                  </div>
+                )}
                 <Link
                   href={project.link.href}
                   className="px-4 py-2 rounded-full bg-secondary/30 border border-border hover:bg-primary hover:text-primary-foreground transition-all text-xs font-mono uppercase flex items-center gap-2"
@@ -50,7 +60,7 @@ export function Projects() {
                 {project.title}
               </h3>
 
-              <p className="text-muted-foreground mb-8 text-sm leading-relaxed flex-grow font-light border-b border-border pb-8 relative z-10">
+              <p className="text-muted-foreground mb-8 text-sm leading-relaxed grow font-light border-b border-border pb-8 relative z-10">
                 {project.description}
               </p>
 

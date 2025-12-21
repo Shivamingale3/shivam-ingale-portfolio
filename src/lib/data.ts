@@ -79,26 +79,29 @@ export const RESUME_DATA = {
   projects: [
     {
       title: "Ek-City – Social Media Platform",
+      logo: "/ek-city.svg",
       techStack: ["React", "Node.js", "PostgreSQL"],
       description:
         "Built a city-focused platform delivering real-time, verified updates from officials. Gained traction from local government groups in Nagpur.",
       link: {
-        label: "github.com",
-        href: "#",
+        label: "https://github.com/Shivamingale3/ekCity-frontend",
+        href: "https://ek-city-frontend-bsw71fp6j-shivams-projects-e34e2151.vercel.app",
       },
     },
     {
-      title: "Category Management App",
+      title: "Cosmic Timer",
+      logo: "/cosmic-timer.png",
       techStack: ["Flutter", "Firebase", "Java Spring Boot", "PostgreSQL"],
       description:
-        "Developed a cross-platform organizer for documents, tasks, and media. Implemented end-to-end encryption for secure data handling.",
+        "Cosmic Timer is not just a productivity tool; it's an immersive 3D experience. Watch as the solar system comes to life on your screen, with planets orbiting in real-time. Set your focus duration and let the majestic rotation of the cosmos guide your workflow. Built with modern web technologies, it features a fully interactive 3D solar system, realistic planet textures, and smooth camera controls.",
       link: {
-        label: "github.com",
-        href: "#",
+        label: "https://github.com/Shivamingale3/Cosmic_Timer",
+        href: "https://timer.shivamingale.com",
       },
     },
     {
       title: "Biotech Analysis Platform",
+      logo: null,
       techStack: ["React", "Vite", "TypeScript", "AWS S3", "Cognito"],
       description:
         "Designed a system enabling direct multi-GB file uploads without backend involvement. Improved throughput and significantly reduced server costs.",
@@ -109,6 +112,7 @@ export const RESUME_DATA = {
     },
     {
       title: "Solar Analytics Dashboard",
+      logo: null,
       techStack: ["Next.js", "TypeScript", "ShadCN"],
       description:
         "Created interactive dashboards for analyzing solar plant efficiency. Integrated OCR-based bill parsing to compute real-time insights.",
