@@ -78,20 +78,31 @@ export const RESUME_DATA = {
   ],
   projects: [
     {
-      title: "Ek-City – Social Media Platform",
-      logo: "/ek-city.svg",
-      techStack: ["React", "Node.js", "PostgreSQL"],
+      title: "Cloudlet",
+      logo: "/cloudlet.png",
+      techStack: [
+        "React 18",
+        "Vite",
+        "TypeScript",
+        "Tailwind CSS",
+        "Redux Toolkit",
+        "Node.js",
+        "JWT",
+        "Multer",
+        "Mongoose",
+        "MongoDB",
+      ],
       description:
-        "Built a city-focused platform delivering real-time, verified updates from officials. Gained traction from local government groups in Nagpur.",
+        "Cloudlet is a powerful, secure, and modern cloud storage platform designed for individuals and teams who want full control over their data. With a beautiful glassmorphism-inspired UI and a robust S3-like backend, Cloudlet offers seamless file management, secure sharing, and detailed system observability.",
       link: {
-        label: "https://github.com/Shivamingale3/ekCity-frontend",
-        href: "https://ek-city-frontend-bsw71fp6j-shivams-projects-e34e2151.vercel.app",
+        label: "https://github.com/Shivamingale3/cloudlet",
+        href: "https://cloudlet.shivamingale.com",
       },
     },
     {
       title: "Cosmic Timer",
       logo: "/cosmic-timer.png",
-      techStack: ["Flutter", "Firebase", "Java Spring Boot", "PostgreSQL"],
+      techStack: ["NextJs", "React Three Fiber", "TailwindCss"],
       description:
         "Cosmic Timer is not just a productivity tool; it's an immersive 3D experience. Watch as the solar system comes to life on your screen, with planets orbiting in real-time. Set your focus duration and let the majestic rotation of the cosmos guide your workflow. Built with modern web technologies, it features a fully interactive 3D solar system, realistic planet textures, and smooth camera controls.",
       link: {
@@ -100,14 +111,14 @@ export const RESUME_DATA = {
       },
     },
     {
-      title: "Biotech Analysis Platform",
-      logo: null,
-      techStack: ["React", "Vite", "TypeScript", "AWS S3", "Cognito"],
+      title: "Ek-City – Social Media Platform",
+      logo: "/ek-city.svg",
+      techStack: ["React", "Node.js", "PostgreSQL"],
       description:
-        "Designed a system enabling direct multi-GB file uploads without backend involvement. Improved throughput and significantly reduced server costs.",
+        "Built a city-focused platform delivering real-time, verified updates from officials. Gained traction from local government groups in Nagpur.",
       link: {
-        label: "github.com",
-        href: "#",
+        label: "https://github.com/Shivamingale3/ekCity-frontend",
+        href: "https://ekcity.shivamingale.com",
       },
     },
     {
