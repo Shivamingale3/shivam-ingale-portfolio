@@ -50,6 +50,7 @@ export function Projects() {
                 )}
                 <Link
                   href={project.link.href}
+                  target="_blank"
                   className="px-4 py-2 rounded-full bg-secondary/30 border border-border hover:bg-primary hover:text-primary-foreground transition-all text-xs font-mono uppercase flex items-center gap-2"
                 >
                   View Project <ArrowUpRight className="w-3 h-3" />
