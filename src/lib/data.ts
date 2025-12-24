@@ -111,6 +111,17 @@ export const RESUME_DATA = {
       },
     },
     {
+      title: "UniClip-Clipboard Sync over WiFi",
+      logo: "uniclip.png",
+      techStack: ["Flutter", "UDP/TCP"],
+      description:
+        "Uniclip is a privacy-first, LAN-only clipboard synchronization tool designed for Android, Windows, and Linux. Seamlessly share text and images between your devices without sending data to the cloud.",
+      link: {
+        label: "https://github.com/Shivamingale3/uniclip",
+        href: "https://uniclip.shivamingale.com",
+      },
+    },
+    {
       title: "Ek-City – Social Media Platform",
       logo: "/ek-city.svg",
       techStack: ["React", "Node.js", "PostgreSQL"],
@@ -119,17 +130,6 @@ export const RESUME_DATA = {
       link: {
         label: "https://github.com/Shivamingale3/ekCity-frontend",
         href: "https://ekcity.shivamingale.com",
-      },
-    },
-    {
-      title: "Solar Analytics Dashboard",
-      logo: null,
-      techStack: ["Next.js", "TypeScript", "ShadCN"],
-      description:
-        "Created interactive dashboards for analyzing solar plant efficiency. Integrated OCR-based bill parsing to compute real-time insights.",
-      link: {
-        label: "github.com",
-        href: "#",
       },
     },
   ],
