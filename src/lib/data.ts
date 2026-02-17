@@ -95,8 +95,8 @@ export const RESUME_DATA = {
       description:
         "Cloudlet is a powerful, secure, and modern cloud storage platform designed for individuals and teams who want full control over their data. With a beautiful glassmorphism-inspired UI and a robust S3-like backend, Cloudlet offers seamless file management, secure sharing, and detailed system observability.",
       link: {
-        label: "https://github.com/Shivamingale3/cloudlet",
-        href: "https://cloudlet.shivamingale.com",
+        github: "https://github.com/Shivamingale3/cloudlet",
+        web: "https://cloudlet.shivamingale.com",
       },
     },
     {
@@ -106,8 +106,19 @@ export const RESUME_DATA = {
       description:
         "Cosmic Timer is not just a productivity tool; it's an immersive 3D experience. Watch as the solar system comes to life on your screen, with planets orbiting in real-time. Set your focus duration and let the majestic rotation of the cosmos guide your workflow. Built with modern web technologies, it features a fully interactive 3D solar system, realistic planet textures, and smooth camera controls.",
       link: {
-        label: "https://github.com/Shivamingale3/Cosmic_Timer",
-        href: "https://timer.shivamingale.com",
+        github: "https://github.com/Shivamingale3/Cosmic_Timer",
+        web: "https://timer.shivamingale.com",
+      },
+    },
+    {
+      title: "ProcPipe - Terminal Process Watcher",
+      logo: "/procpipe.png",
+      techStack: ["Go", "Telegram Bot API"],
+      description:
+        "Spawn any long-running command. ProcPipe watches it with zero polling and notifies you on Telegram when it completes or needs input.",
+      link: {
+        github: "https://github.com/Shivamingale3/procpipe",
+        web: "https://procpipe.shivamingale.com",
       },
     },
     {
@@ -117,8 +128,8 @@ export const RESUME_DATA = {
       description:
         "Uniclip is a privacy-first, LAN-only clipboard synchronization tool designed for Android, Windows, and Linux. Seamlessly share text and images between your devices without sending data to the cloud.",
       link: {
-        label: "https://github.com/Shivamingale3/uniclip",
-        href: "https://uniclip.shivamingale.com",
+        github: "https://github.com/Shivamingale3/uniclip",
+        web: "https://uniclip.shivamingale.com",
       },
     },
     {
@@ -128,8 +139,8 @@ export const RESUME_DATA = {
       description:
         "Built a city-focused platform delivering real-time, verified updates from officials. Gained traction from local government groups in Nagpur.",
       link: {
-        label: "https://github.com/Shivamingale3/ekCity-frontend",
-        href: "https://ekcity.shivamingale.com",
+        github: "https://github.com/Shivamingale3/ekCity-frontend",
+        web: "https://ekcity.shivamingale.com",
       },
     },
   ],

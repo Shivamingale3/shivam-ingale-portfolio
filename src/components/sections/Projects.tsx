@@ -2,8 +2,9 @@
 
 import { motion } from "framer-motion";
 import { RESUME_DATA } from "@/lib/data";
-import { ArrowUpRight, Folder } from "lucide-react";
+import { ArrowUpRight, Folder, Globe } from "lucide-react";
 import Link from "next/link";
+import { SiGithub } from "react-icons/si";
 
 export function Projects() {
   return (
@@ -48,13 +49,24 @@ export function Projects() {
                     <Folder className="w-6 h-6 text-foreground" />
                   </div>
                 )}
-                <Link
-                  href={project.link.href}
-                  target="_blank"
-                  className="px-4 py-2 rounded-full bg-secondary/30 border border-border hover:bg-primary hover:text-primary-foreground transition-all text-xs font-mono uppercase flex items-center gap-2"
-                >
-                  View Project <ArrowUpRight className="w-3 h-3" />
-                </Link>
+                <div className="flex gap-2">
+                  <Link
+                    href={project.link.github}
+                    target="_blank"
+                    className="px-4 py-2 rounded-full bg-secondary/30 border border-border hover:bg-primary hover:text-primary-foreground transition-all text-xs font-mono uppercase flex items-center gap-2"
+                  >
+                    <SiGithub />
+                    View Code <ArrowUpRight className="w-3 h-3" />
+                  </Link>
+                  <Link
+                    href={project.link.web}
+                    target="_blank"
+                    className="px-4 py-2 rounded-full bg-secondary/30 border border-border hover:bg-primary hover:text-primary-foreground transition-all text-xs font-mono uppercase flex items-center gap-2"
+                  >
+                    <Globe size={15} />
+                    View Project <ArrowUpRight className="w-3 h-3" />
+                  </Link>
+                </div>
               </div>
 
               <h3 className="text-2xl font-bold text-foreground mb-3 relative z-10">
