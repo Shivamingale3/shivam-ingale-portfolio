@@ -122,6 +122,18 @@ export const RESUME_DATA = {
       },
     },
     {
+      title:
+        "Silo Vault - A secure place to write whatever's in your mind that you'll forget later.",
+      logo: "/silo-vault.png",
+      techStack: ["Flutter", "Firebase", "AES Encryption"],
+      description:
+        "A zero-knowledge vault for passwords and private notes. Decrypted only on your device, never on our servers. AES-256 encryption ensures your data is secure, while Flutter provides a seamless experience.",
+      link: {
+        github: "https://github.com/Shivamingale3/silo-vault",
+        web: "https://silovault.shivamingale.com",
+      },
+    },
+    {
       title: "UniClip-Clipboard Sync over WiFi",
       logo: "uniclip.png",
       techStack: ["Flutter", "UDP/TCP"],
