@@ -7,7 +7,7 @@ export const RESUME_DATA = {
     "Full-stack Engineer experienced in building production-grade systems across React, Next.js, Node.js, and Spring Boot. Strong ownership mindset — handling architecture, implementation, and delivery end-to-end.",
   summary:
     "Full-stack Engineer experienced in building production-grade systems across React, Next.js, Node.js, and Spring Boot. Delivered cloud-ready solutions on AWS/GCP, optimized system performance, and shipped features used by real clients. Strong ownership mindset — handle architecture, implementation, and delivery end-to-end.",
-  avatarUrl: "/profile.jpeg",
+  avatarUrl: "/profile.png",
   personalWebsiteUrl: "https://shivamingale.com",
   resumeUrl: "https://www.shivamingale.com/Shivam_Resume.docx.pdf", // Placeholder
   contact: {
