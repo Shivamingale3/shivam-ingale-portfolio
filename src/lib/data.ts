@@ -182,7 +182,7 @@ export const RESUME_DATA = {
         "Built a city-focused platform delivering real-time, verified updates from officials. Gained traction from local government groups in Nagpur.",
       link: {
         github: "https://github.com/Shivamingale3/ekCity-frontend",
-        web: "https://ekcity.shivamingale.com",
+        web: "https://ekcity.dealintra.in/",
       },
     },
   ],
