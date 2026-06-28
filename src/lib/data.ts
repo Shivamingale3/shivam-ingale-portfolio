@@ -100,14 +100,33 @@ export const RESUME_DATA = {
       },
     },
     {
-      title: "Cosmic Timer",
-      logo: "/cosmic-timer.png",
-      techStack: ["NextJs", "React Three Fiber", "TailwindCss"],
+      title: "PiDex - Home Server Watchman",
+      logo: "/pidex.png",
+      techStack: ["Go", "Linux", "Telegram Bot API"],
       description:
-        "Cosmic Timer is not just a productivity tool; it's an immersive 3D experience. Watch as the solar system comes to life on your screen, with planets orbiting in real-time. Set your focus duration and let the majestic rotation of the cosmos guide your workflow. Built with modern web technologies, it features a fully interactive 3D solar system, realistic planet textures, and smooth camera controls.",
+        "PiDex keeps an eye on processes consuming your Raspberry Pi's RAM or CPU. Get notified instantly if a service starts hogging resources, helping you maintain server stability without constantly checking in.",
       link: {
-        github: "https://github.com/Shivamingale3/Cosmic_Timer",
-        web: "https://timer.shivamingale.com",
+        github: "https://github.com/Shivamingale3/pi_dex",
+        web: "https://pidex.shivamingale.com",
+      },
+    },
+    {
+      title: "Dumpcron - Scheduled database backup daemon",
+      logo: "/dumpcron.png",
+      techStack: [
+        "Go",
+        "Linux",
+        "PostgreSQL",
+        "Docker",
+        "MongoDB",
+        "PostgreSQL",
+        "MySQL",
+      ],
+      description:
+        "Backs up PostgreSQL, MySQL, and MongoDB on a daily schedule. Streamed zstd compression. Zero runtime dependencies. Telegram alerts via PiDex.",
+      link: {
+        github: "https://github.com/Shivamingale3/dumpcron",
+        web: "https://dumpcron.shivamingale.com",
       },
     },
     {
@@ -131,6 +150,17 @@ export const RESUME_DATA = {
       link: {
         github: "https://github.com/Shivamingale3/silo-vault",
         web: "https://silovault.shivamingale.com",
+      },
+    },
+    {
+      title: "Cosmic Timer",
+      logo: "/cosmic-timer.png",
+      techStack: ["NextJs", "React Three Fiber", "TailwindCss"],
+      description:
+        "Cosmic Timer is not just a productivity tool; it's an immersive 3D experience. Watch as the solar system comes to life on your screen, with planets orbiting in real-time. Set your focus duration and let the majestic rotation of the cosmos guide your workflow. Built with modern web technologies, it features a fully interactive 3D solar system, realistic planet textures, and smooth camera controls.",
+      link: {
+        github: "https://github.com/Shivamingale3/Cosmic_Timer",
+        web: "https://timer.shivamingale.com",
       },
     },
     {
