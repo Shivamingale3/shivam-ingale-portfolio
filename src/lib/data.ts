@@ -9,7 +9,7 @@ export const RESUME_DATA = {
     "Full-stack Engineer experienced in building production-grade systems across React, Next.js, Node.js, and Spring Boot. Delivered cloud-ready solutions on AWS/GCP, optimized system performance, and shipped features used by real clients. Strong ownership mindset — handle architecture, implementation, and delivery end-to-end.",
   avatarUrl: "/profile.png",
   personalWebsiteUrl: "https://shivamingale.com",
-  resumeUrl: "https://www.shivamingale.com/Shivam_Resume.docx.pdf", // Placeholder
+  resumeUrl: "https://www.shivamingale.com/Shivam_Ashok_Ingale_SDE.pdf", // Placeholder
   contact: {
     email: "shivamingale3@gmail.com",
     tel: "+91-9325063591",
@@ -32,7 +32,7 @@ export const RESUME_DATA = {
       degree: "Master of Computer Applications (MCA)",
       start: "2022",
       end: "2024",
-      grade: "CGPA: 7.5",
+      grade: "CGPA: 7.8",
     },
   ],
   work: [
