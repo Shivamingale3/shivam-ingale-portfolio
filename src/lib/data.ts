@@ -185,5 +185,26 @@ export const RESUME_DATA = {
         web: "https://ekcity.dealintra.in/",
       },
     },
+    {
+      title: "Get Your Bot",
+      logo: "/getyourbot.png",
+      techStack: [
+        "NextJs 16",
+        "TypeScript",
+        "Tailwind CSS",
+        "Tanstack Query",
+        "Node.js",
+        "JWT",
+        "AWS S3",
+        "Bull MQ",
+        "Redis",
+      ],
+      description:
+        "SignUp, Fill Bot name, Dos and don'ts, knowledge base. Click generate and copy bot's embed URL to embed your custom Chat bot into your website without any complex implementation",
+      link: {
+        github: "https://github.com/Shivamingale3/get_your_bot",
+        web: "https://getyourbot.shivamingale.com",
+      },
+    },
   ],
 } as const;
