@@ -113,15 +113,7 @@ export const RESUME_DATA = {
     {
       title: "Dumpcron - Scheduled database backup daemon",
       logo: "/dumpcron.png",
-      techStack: [
-        "Go",
-        "Linux",
-        "PostgreSQL",
-        "Docker",
-        "MongoDB",
-        "PostgreSQL",
-        "MySQL",
-      ],
+      techStack: ["Go", "Linux", "PostgreSQL", "Docker", "MongoDB", "MySQL"],
       description:
         "Backs up PostgreSQL, MySQL, and MongoDB on a daily schedule. Streamed zstd compression. Zero runtime dependencies. Telegram alerts via PiDex.",
       link: {
