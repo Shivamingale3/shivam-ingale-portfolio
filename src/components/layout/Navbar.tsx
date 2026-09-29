@@ -70,7 +70,7 @@ export function Navbar() {
           className="border-primary text-primary hover:bg-primary hover:text-black"
           asChild
         >
-          <a href="/SHIVAM_ASHOK_INGALE_SDE.pdf" target="_blank" >
+          <a href="/Shivam_Ingale_Software_Engineer.pdf" target="_blank" >
             RESUME
           </a>
         </Button>
